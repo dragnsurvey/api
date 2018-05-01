@@ -1,0 +1,585 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "Drag'n Survey REST API documentation",
+    "description" : "Drag’n Survey API allow you to collect the datas you retrieved through Drag’n Survey and use them as you wish in your application. You can access your own surveys datas and datas collected by accounts you manage.<br/><br/>\nThe Drag’n Survey API is REST based and use OAuth 2.0 as authorization protocol.\nBearer authentification is used to make request to Drag'n Survey webservices. As a result, webservices are only available over HTTPS (SSL). <br/><br/>\nTo [request an API token](https://api.dragnsurvey.com/access_token), you must be the owner of a Drag'n Survey account and be authentified.<br/><br/>\nThe token need to be send in the authorization header of your request:  <code>Authorization: Bearer \\<token> </code><br/><br/>\nThe api return json object by default. Models of returned object are provided in the following documentation.<br/>\n",
+    "contact" : {
+      "name" : "API support",
+      "url" : "https://api.dragnsurvey.com",
+      "email" : "contact@dragnsurvey.com"
+    }
+  },
+  "host" : "api.dragnsurvey.com",
+  "basePath" : "/v1.0.0/",
+  "tags" : [ {
+    "name" : "surveys",
+    "description" : "survey definition"
+  }, {
+    "name" : "collectors",
+    "description" : "collectors definition"
+  }, {
+    "name" : "questions",
+    "description" : "questions definition and related answers"
+  }, {
+    "name" : "respondents",
+    "description" : "respondents answers"
+  } ],
+  "schemes" : [ "https" ],
+  "securityDefinitions" : {
+    "Bearer" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "paths" : {
+    "/surveys" : {
+      "get" : {
+        "tags" : [ "surveys" ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "summary" : "get user surveys",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "userId",
+          "type" : "integer",
+          "in" : "query",
+          "required" : false,
+          "description" : "optionnal parameter to get surveys of a sub account"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Return a liste of surveys for a given user",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "title" : "survey",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "example" : 1254
+                  },
+                  "title" : {
+                    "type" : "string",
+                    "example" : "My test survey"
+                  },
+                  "responses" : {
+                    "type" : "integer",
+                    "example" : 125,
+                    "description" : "number of answer to a survey"
+                  },
+                  "creationTimeSTamp" : {
+                    "type" : "string",
+                    "example" : "2017-03-21 16:22:55"
+                  },
+                  "modificationTimeStamp" : {
+                    "type" : "string",
+                    "example" : "2017-03-21 17:42:25"
+                  },
+                  "category" : {
+                    "type" : "string",
+                    "example" : "human ressource"
+                  },
+                  "isTemplate" : {
+                    "type" : "boolean",
+                    "example" : false
+                  },
+                  "publisher" : {
+                    "type" : "string",
+                    "example" : "John Doe"
+                  },
+                  "type" : {
+                    "type" : "string",
+                    "example" : "survey"
+                  },
+                  "collectors" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string",
+                      "example" : [ "a4c30e489c7fe8e4da1695abca07d93b", "b2048f33e7d4ee025bca224ad89d9695" ],
+                      "description" : "array containing collectors id of a given survey"
+                    }
+                  },
+                  "questions" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string",
+                      "example" : [ 270555, 2705556 ],
+                      "description" : "array containing the questions id of a given survey"
+                    }
+                  },
+                  "options" : {
+                    "type" : "object",
+                    "title" : "survey_options",
+                    "properties" : {
+                      "progressBar" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option to display or hide a progress bar for a given survey"
+                      },
+                      "title" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option to display or hide the title of a given survey"
+                      },
+                      "footerContent" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option to display or hide the Drag'n Survey branding in the footer of the survey"
+                      },
+                      "language" : {
+                        "type" : "string",
+                        "example" : "fr",
+                        "description" : "language in which the various help text and buttons of the survey will be displayed to the user. Currently accepted strings are \"en\", \"fr\" and \"pl\""
+                      },
+                      "titleVisibility" : {
+                        "type" : "boolean",
+                        "example" : false,
+                        "description" : "option to display or hide the title of the survey"
+                      },
+                      "logoVisibility" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option to display or hide the logo of the survey. It works both for the Drag'n Survey logo or custom user logo"
+                      },
+                      "pageNumbering" : {
+                        "type" : "boolean",
+                        "example" : false,
+                        "description" : "option to display or hide the page numbering and remaining pages at the top of a survey page"
+                      },
+                      "questionNumbering" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option to display or hide questions numbering"
+                      },
+                      "quizzCorrection" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option that enable the correction mode at the end of a quiz."
+                      },
+                      "scoreVisibility" : {
+                        "type" : "boolean",
+                        "example" : true,
+                        "description" : "option that enable or disable the display of the final score of the respondent on the result page of a quiz."
+                      },
+                      "timer" : {
+                        "type" : "string",
+                        "example" : "00:10:00",
+                        "description" : "time allowed to complete a quiz. Allow configuration with hour:minute:second in ISO format"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    },
+    "/collectors/{collectorId}" : {
+      "get" : {
+        "tags" : [ "collectors" ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "summary" : "retrieve informations about a collector",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "collectorId",
+          "type" : "string",
+          "in" : "path",
+          "required" : true,
+          "description" : "collector Id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "collector datas",
+            "schema" : {
+              "type" : "object",
+              "title" : "collector",
+              "properties" : {
+                "type" : {
+                  "type" : "string",
+                  "example" : "mail",
+                  "description" : "a string that can be 'mail', 'widget', 'webLink' or 'qrCode'"
+                },
+                "answers" : {
+                  "type" : "integer",
+                  "example" : 45,
+                  "description" : "number of answers got through this collector"
+                },
+                "nick" : {
+                  "type" : "string",
+                  "example" : "Test collector"
+                },
+                "status" : {
+                  "type" : "string",
+                  "example" : "active",
+                  "description" : "Set the questionnaire available to respondent or not"
+                },
+                "creationDate" : {
+                  "type" : "string",
+                  "example" : "2017-03-21"
+                },
+                "user" : {
+                  "type" : "string",
+                  "example" : "John Doe",
+                  "description" : "user name of the collector creator"
+                },
+                "options" : {
+                  "type" : "object",
+                  "title" : "collector_options",
+                  "properties" : {
+                    "soloIp" : {
+                      "type" : "boolean",
+                      "example" : false,
+                      "description" : "if set to true, only one answer is accepted by IP address, default to false"
+                    },
+                    "anonymous" : {
+                      "type" : "boolean",
+                      "example" : false,
+                      "description" : "if set to true, IP address and mail address while not be shown in the result, default to false"
+                    },
+                    "pageBack" : {
+                      "type" : "boolean",
+                      "example" : false,
+                      "description" : "if set to true, a button allowing respondent to navigate back to previous pages will be set on each survey pages after the first one, default to false"
+                    },
+                    "redirection" : {
+                      "type" : "string",
+                      "example" : "http://wwww.google.com",
+                      "description" : "address of a page to which respondent are redirected 5 seconds after the survey completion, default to false, in which case no redirection will happen"
+                    },
+                    "thanksPage" : {
+                      "type" : "string",
+                      "example" : "Thank you for taking the time to answer this survey",
+                      "description" : "custom thank you text that will be displayed after completion of the survey, default to false, in which case, the default thank you message will be displayed instead"
+                    }
+                  }
+                },
+                "collectorDatas" : {
+                  "type" : "object",
+                  "title" : "collector_datas",
+                  "properties" : {
+                    "subject" : {
+                      "type" : "string",
+                      "example" : "Your feedback is important for us",
+                      "description" : "only available mar mail type collector"
+                    },
+                    "body" : {
+                      "type" : "string",
+                      "description" : "the email content. Only available mar mail type collector"
+                    },
+                    "link" : {
+                      "type" : "string",
+                      "description" : "the full link to access the survey associated to a collector. Not available for mail type collectors",
+                      "example" : "https://www.dragnsurvey/survey/r/9fb7267a"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    },
+    "/questions/{questionId}" : {
+      "get" : {
+        "tags" : [ "questions" ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "summary" : "Get question definition",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "questionId",
+          "type" : "integer",
+          "in" : "path",
+          "required" : true,
+          "description" : "the id of the question for which you want to retrieve definition"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Return an object containing question definition",
+            "schema" : {
+              "type" : "object",
+              "title" : "question",
+              "properties" : {
+                "number" : {
+                  "type" : "integer",
+                  "example" : 1,
+                  "description" : "The numbering of the question in the survey"
+                },
+                "pageNumber" : {
+                  "type" : "integer",
+                  "example" : 1,
+                  "description" : "The numbering of the page where the question is assigned"
+                },
+                "type" : {
+                  "type" : "string",
+                  "example" : "multipleChoice",
+                  "description" : "A string whose value can match \"multipleChoice\", \"rating\", \"freeField\", \"ranking\", \"percentage\", \"multipleImageChoice\", \"imageRating\""
+                },
+                "title" : {
+                  "type" : "string",
+                  "example" : "Which color is your favorite?",
+                  "description" : "The heading of the question"
+                },
+                "content" : {
+                  "description" : "datas to be display as question choice of answers",
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "title" : "question_items",
+                    "properties" : {
+                      "choices" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "string",
+                          "example" : "green",
+                          "description" : "value for the different proposition to a question"
+                        }
+                      },
+                      "other" : {
+                        "type" : "string",
+                        "example" : "Une autre couleur",
+                        "description" : "help text for the \"other\" choice in case of multiple choice answers"
+                      }
+                    }
+                  }
+                },
+                "options" : {
+                  "type" : "object",
+                  "title" : "question_options",
+                  "properties" : {
+                    "subType" : {
+                      "type" : "string",
+                      "example" : null,
+                      "description" : "optional string that can slightly modify the behaviour or the display of a question (example \"date\" for a free field on which only date answers are accepted)"
+                    },
+                    "shuffle" : {
+                      "type" : "boolean",
+                      "example" : true,
+                      "description" : "indicate if the different proposition must be shown in a random order or not."
+                    },
+                    "alphaSort" : {
+                      "type" : "boolean",
+                      "example" : false,
+                      "description" : "indicate if the different proposition must be shown in alphabetical order or not"
+                    },
+                    "mandatory" : {
+                      "type" : "boolean",
+                      "example" : true,
+                      "description" : "indicate if the answer to this question is mandatory to keep progressing in the questionnaire"
+                    },
+                    "allowedAnswer" : {
+                      "type" : "integer",
+                      "example" : 2,
+                      "description" : "indicate how many answers it is possible to select for this question"
+                    },
+                    "size" : {
+                      "type" : "integer",
+                      "example" : 500,
+                      "description" : "indicate how many characters can be entered for a question of type freeField (from 1 to 1000)"
+                    },
+                    "labels" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string",
+                        "example" : [ "1", "2", "3", "4", "5" ],
+                        "description" : "label text to be display for the rating bar question"
+                      }
+                    },
+                    "labelsColor" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string",
+                        "example" : [ "169c6e", "169c6e", "169c6e", "169c6e", "169c6e" ],
+                        "description" : "color associated to the labels"
+                      }
+                    }
+                  }
+                },
+                "redirect" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string",
+                    "example" : 4,
+                    "description" : "number of the page to which a proposition redirect if it is selected. Indexes in this array must match the indexes of the content array. To redirect to the Thanks page and Result page, \"thanks\", \"result\" strings can be entered instead of a  page number. If a proposal do not redirect to a specific page null must be set as a value"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    },
+    "/questions/{questionId}/responses" : {
+      "get" : {
+        "tags" : [ "questions" ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "summary" : "Retrieve responses associated to a questions",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "questionId",
+          "type" : "integer",
+          "in" : "path",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Return an object containing informations about the responses associated to a question",
+            "schema" : {
+              "type" : "object",
+              "title" : "responses",
+              "properties" : {
+                "questionId" : {
+                  "type" : "integer",
+                  "example" : 80096,
+                  "description" : "the id of the question to which the responses are associated"
+                },
+                "answers_count" : {
+                  "type" : "integer",
+                  "example" : 102,
+                  "description" : "number of respondents that answered this question"
+                },
+                "answers" : {
+                  "type" : "array",
+                  "description" : "each object in this array represent the answer to an item choice. The order in this array match the questions.content.choices array",
+                  "items" : {
+                    "type" : "object",
+                    "title" : "responses_details",
+                    "properties" : {
+                      "fields" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "array",
+                          "items" : {
+                            "type" : "string",
+                            "example" : [ "Super site", "Continuer comme ça" ],
+                            "description" : "array containing the values entered by respndents to an item of a question of type freeField. The order in this array match the questions.content.choices array"
+                          }
+                        }
+                      },
+                      "scores" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "string",
+                          "example" : 16,
+                          "description" : "can be a string or an array depending of the question type"
+                        }
+                      },
+                      "count" : {
+                        "type" : "integer",
+                        "example" : 102,
+                        "description" : "the number of respondents that answered a specific item of the question. Only available with rate type question"
+                      },
+                      "split" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "integer",
+                          "example" : [ 1, 5, 0, 0, 1 ],
+                          "description" : "array representing the spread of the respondents between different labels choice in a rate type question."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    },
+    "/respondents/{respondentId}" : {
+      "get" : {
+        "tags" : [ "respondents" ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "summary" : "retrieve responses associated to a respondent",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "respondentId",
+          "type" : "integer",
+          "in" : "path",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Return an object containing informations about the responses associated to a respondent",
+            "schema" : {
+              "type" : "object",
+              "title" : "respondent",
+              "properties" : {
+                "id" : {
+                  "type" : "integer",
+                  "example" : 80096,
+                  "description" : "the id of the respondent to which the responses are associated"
+                },
+                "ip" : {
+                  "type" : "string",
+                  "example" : "127.0.0.1",
+                  "description" : "the ip adress of the respondent"
+                },
+                "email" : {
+                  "type" : "string",
+                  "example" : "example@mail.com",
+                  "description" : "the email address of the respondent (only available for mail type collector)"
+                },
+                "date" : {
+                  "type" : "string",
+                  "example" : "2018-01-01",
+                  "description" : "the date in ISO format at which the respondent answered"
+                },
+                "questions" : {
+                  "type" : "array",
+                  "description" : "array containing answers to questions filled by the respondent",
+                  "items" : {
+                    "type" : "object",
+                    "title" : "respondent_answers",
+                    "properties" : {
+                      "questionId" : {
+                        "type" : "integer",
+                        "example" : 12345,
+                        "description" : "the question Id associated to the answers"
+                      },
+                      "answers" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "string",
+                          "description" : "the answers given by the respondent to the question",
+                          "example" : "great api"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    }
+  }
+}
