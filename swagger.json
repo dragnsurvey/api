@@ -326,8 +326,9 @@
                 },
                 "type" : {
                   "type" : "string",
+                  "enum" : [ "multipleChoice", "rating", "freeField", "ranking", "percentage", "multipleImageChoice", "imageRating" ],
                   "example" : "multipleChoice",
-                  "description" : "A string whose value can match \"multipleChoice\", \"rating\", \"freeField\", \"ranking\", \"percentage\", \"multipleImageChoice\", \"imageRating\""
+                  "description" : "A string whose value indicate question type"
                 },
                 "title" : {
                   "type" : "string",
