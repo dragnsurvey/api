@@ -274,12 +274,46 @@
                     },
                     "body" : {
                       "type" : "string",
-                      "description" : "the email content. Only available mar mail type collector"
+                      "description" : "the email content. Only available for mail type collector"
                     },
                     "link" : {
                       "type" : "string",
                       "description" : "the full link to access the survey associated to a collector. Not available for mail type collectors",
                       "example" : "https://www.dragnsurvey/survey/r/9fb7267a"
+                    },
+                    "campaign" : {
+                      "type" : "array",
+                      "description" : "datas of the mailing campaign associated to this collector. Only available for mail type collector",
+                      "items" : {
+                        "type" : "object",
+                        "title" : "mails campaign",
+                        "properties" : {
+                          "mail" : {
+                            "type" : "string",
+                            "description" : "the respondent email address",
+                            "example" : "john@mail.com"
+                          },
+                          "sentTimeStamp" : {
+                            "type" : "string",
+                            "description" : "Timestamp at which the email was sent or null if the email hasn't been send",
+                            "example" : "2018-01-01 15:42:53"
+                          },
+                          "deliveryStatus" : {
+                            "type" : "string",
+                            "description" : "mail delivery status",
+                            "enum" : [ "delivered", "pending", "invalid mailbox" ]
+                          },
+                          "answered" : {
+                            "type" : "boolean",
+                            "description" : "status that inform if respondent answered the survey"
+                          },
+                          "reminderEmailTimeStamp" : {
+                            "type" : "string",
+                            "example" : "2018-01-07 09:00:00",
+                            "description" : "the timeStamp at which the reminder was sent or null if no reminder was sent"
+                          }
+                        }
+                      }
                     }
                   }
                 }
