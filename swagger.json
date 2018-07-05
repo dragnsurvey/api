@@ -326,6 +326,34 @@
         }
       }
     },
+    "/collectors/{collectorId}/authentify/{customId}" : {
+      "get" : {
+        "tags" : [ "collectors" ],
+        "security" : [ {
+          "Bearer" : [ ]
+        } ],
+        "summary" : "get a custom link to identify respondent with the custom Id provided",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "collectorId",
+          "type" : "string",
+          "in" : "path",
+          "required" : true,
+          "description" : "the id of the collector for which you want to retrieve a custom link"
+        }, {
+          "name" : "customId",
+          "type" : "string",
+          "in" : "path",
+          "required" : true,
+          "description" : "the custom Id that will be associated to the respondent"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "return an object with custom link informations"
+          }
+        }
+      }
+    },
     "/questions/{questionId}" : {
       "get" : {
         "tags" : [ "questions" ],
