@@ -326,14 +326,15 @@
         }
       }
     },
-    "/collectors/{collectorId}/authentify/{customId}" : {
-      "get" : {
+    "/collectors/{collectorId}/authentify/" : {
+      "post" : {
         "tags" : [ "collectors" ],
         "security" : [ {
           "Bearer" : [ ]
         } ],
-        "summary" : "get a custom link to identify respondent with the custom Id provided",
+        "summary" : "get custom links to identify respondents with the custom Ids provided",
         "description" : "",
+        "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
           "name" : "collectorId",
           "type" : "string",
@@ -341,15 +342,34 @@
           "required" : true,
           "description" : "the id of the collector for which you want to retrieve a custom link"
         }, {
-          "name" : "customId",
-          "type" : "string",
-          "in" : "path",
-          "required" : true,
-          "description" : "the custom Id that will be associated to the respondent"
+          "name" : "customIds",
+          "type" : "array",
+          "in" : "formData",
+          "items" : {
+            "type" : "string"
+          },
+          "required" : true
         } ],
         "responses" : {
           "200" : {
-            "description" : "return an object with custom link informations"
+            "description" : "return an array of object with custom link informations associated to the id",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "title" : "authentify links",
+                "properties" : {
+                  "customId" : {
+                    "type" : "string",
+                    "description" : "the custom id you provided"
+                  },
+                  "link" : {
+                    "type" : "string",
+                    "description" : "a unique link associated to the custom id you provided. Accessing the survey with this link will authentify the respondent with the custom id provided"
+                  }
+                }
+              }
+            }
           }
         }
       }
