@@ -332,7 +332,7 @@
         "security" : [ {
           "Bearer" : [ ]
         } ],
-        "summary" : "create custom links to identify respondents with the custom Ids provided",
+        "summary" : "create custom links to identify respondents with the custom Ids provided for a given collector (for webLink or widget collectors only)",
         "description" : "",
         "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
