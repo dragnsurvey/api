@@ -332,7 +332,7 @@
         "security" : [ {
           "Bearer" : [ ]
         } ],
-        "summary" : "get custom links to identify respondents with the custom Ids provided",
+        "summary" : "create custom links to identify respondents with the custom Ids provided",
         "description" : "",
         "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
@@ -357,7 +357,7 @@
               "type" : "array",
               "items" : {
                 "type" : "object",
-                "title" : "authentify links",
+                "title" : "auth link",
                 "properties" : {
                   "customId" : {
                     "type" : "string",
