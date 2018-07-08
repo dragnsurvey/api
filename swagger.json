@@ -326,7 +326,7 @@
         }
       }
     },
-    "/collectors/{collectorId}/authentify/" : {
+    "/collectors/{collectorId}/authentify" : {
       "post" : {
         "tags" : [ "collectors" ],
         "security" : [ {
